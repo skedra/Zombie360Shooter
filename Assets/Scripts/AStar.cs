@@ -9,7 +9,7 @@ public class AStar : MonoBehaviour
 	Renderer m_MapRenderer;
 
 	[SerializeField]
-	float m_PointOffset = 0.2f;
+	float m_CellSize = 0.2f;
 
 	[SerializeField]
 	float m_AgentRadius = 0.5f;
@@ -33,7 +33,6 @@ public class AStar : MonoBehaviour
 		public float m_GDist;
 		public float m_HDist;
 		public float m_FDist;
-		public bool m_Closed = false;
 
 		public PathFindingNode(Vector2 pos, Vector2 start, Vector2 end)
 		{
@@ -67,21 +66,24 @@ public class AStar : MonoBehaviour
 		}
 	}
 
-
 	void Awake()
 	{
 		//Lazy singleton
-
 		inst = this;
+
+		// cache the extents on x and z along with the center
 		m_Extents = new Vector2(m_MapRenderer.bounds.extents.x, m_MapRenderer.bounds.extents.z);
 		m_Center = new Vector2(m_MapRenderer.bounds.center.x, m_MapRenderer.bounds.center.z);
-		m_Map =
-			new bool[Mathf.CeilToInt(m_Extents.x * 2f / m_PointOffset),
-				Mathf.CeilToInt(Mathf.CeilToInt(m_Extents.y * 2f / m_PointOffset))];
 
-		for (float x = -m_Extents.x; x < m_Extents.x; x += m_PointOffset)
+		// calcuate map size based on cell size 
+		m_Map =
+			new bool[Mathf.CeilToInt(m_Extents.x * 2f / m_CellSize),
+				Mathf.CeilToInt(Mathf.CeilToInt(m_Extents.y * 2f / m_CellSize))];
+
+		// fill in the map
+		for (float x = -m_Extents.x; x < m_Extents.x; x += m_CellSize)
 		{
-			for (float y = -m_Extents.y; y < m_Extents.y; y += m_PointOffset)
+			for (float y = -m_Extents.y; y < m_Extents.y; y += m_CellSize)
 			{
 				Ray ray = new Ray(new Vector3(x, 30, y), Vector3.down);
 				Vector2 id = GetCellId(new Vector2(x, y));
@@ -90,6 +92,8 @@ public class AStar : MonoBehaviour
 			}
 		}
 
+
+		// create offset vectors for each nav point to use
 		m_OffsetVectors.Add(new Vector2(1, 0));
 		m_OffsetVectors.Add(new Vector2(0, 1));
 		m_OffsetVectors.Add(new Vector2(-1, 0));
@@ -100,40 +104,45 @@ public class AStar : MonoBehaviour
 		m_OffsetVectors.Add(new Vector2(-1, -1));
 	}
 
-	// Update is called once per frame
-	void Update()
-	{
-
-	}
-
 	List<PathFindingNode> GetAdjascentNodes(PathFindingNode start, Dictionary<Vector2, PathFindingNode> unusuedNodes)
 	{
+		// create a new list of nodes
 		List<PathFindingNode> adjNodes = new List<PathFindingNode>();
 
 		foreach (var offset in m_OffsetVectors)
 		{
-			Vector2 newId = GetCellId(start.m_Pos + offset * m_PointOffset);
+			// for each offest value check if the id is within map bounds
+			// if it isn't ignore
+			Vector2 newId = GetCellId(start.m_Pos + offset * m_CellSize);
 
 			if (newId.x < 0 || newId.x >= m_Map.GetLength(0) || newId.y < 0 || newId.y >= m_Map.GetLength(1))
 			{
 				continue;
 			}
+
+			// if it is and it's not walkable ignore
 			if (!IsWalkable(newId))
 				continue;
 
+			// if we've already got this point in the list
 			if (unusuedNodes.ContainsKey(newId))
 			{
-				float tempGDist = start.m_GDist + (offset * m_PointOffset).magnitude;
+				// check if the new distance to start is lower than the previous one
+				float tempGDist = start.m_GDist + (offset * m_CellSize).magnitude;
 				if (tempGDist < unusuedNodes[newId].m_GDist)
 				{
+					// if it is replace the old distance with the new one
 					unusuedNodes[newId].m_GDist = tempGDist;
 					unusuedNodes[newId].m_FDist = tempGDist + unusuedNodes[newId].m_HDist;
+
+					// new node parent from the node that called the method
 					unusuedNodes[newId].m_Parent = start;
 				}
 			}
 			else
 			{
-				PathFindingNode node = new PathFindingNode(start.m_Pos + offset * m_PointOffset, start);
+				// otherwise just create a new node
+				PathFindingNode node = new PathFindingNode(start.m_Pos + offset * m_CellSize, start);
 				adjNodes.Add(node);
 			}
 
@@ -149,49 +158,66 @@ public class AStar : MonoBehaviour
 
 	Vector2 GetCellId(Vector2 pos)
 	{
-		Vector2 id = ((pos + m_Extents) / m_PointOffset);
+		Vector2 id = ((pos + m_Extents) / m_CellSize);
 		return new Vector2(Mathf.FloorToInt(id.x), Mathf.FloorToInt(id.y));
 	}
 
 	public List<PathFindingNode> GetPath(Vector2 start, Vector2 end)
 	{
+		// starting path
 		PathFindingNode path = new PathFindingNode(start, start, end);
 		path.m_Parent = null;
+
+		// unused nodes for finidng the node that is best suited as next path test
 		Dictionary<Vector2, PathFindingNode> unusedNodes = new Dictionary<Vector2, PathFindingNode>();
+
+		// closed nodes  for ones which have already been used not to clutter the list
 		Dictionary<Vector2, PathFindingNode> closedNodes = new Dictionary<Vector2, PathFindingNode>();
 
 		bool found = false;
+
+		// for safety add a exit loop counter
 		int count = 0;
-		while (!found && count < 1200)
+		while (!found && count < 2500)
 		{
+			// get adjasent nodes
 			List<PathFindingNode> newNodes = GetAdjascentNodes(path, unusedNodes);
 
+			// if they are not within the old nodes closed nodes
 			newNodes = newNodes.Where(x => !closedNodes.ContainsKey(GetCellId(x.m_Pos))).ToList();
 
+			// add them to the unused nodes
 			foreach (PathFindingNode n in newNodes)
 			{
 				unusedNodes.Add(GetCellId(n.m_Pos), n);
 			}
 
-			unusedNodes = unusedNodes.OrderBy(x => x.Value.m_FDist).ThenBy(z => z.Value.m_GDist).ThenBy(y => y.Value.m_HDist).ToDictionary(t => t.Key, t => t.Value);
+			// order the nodes by their total dist first, then distance to the end and finally distance to the start
+			unusedNodes = unusedNodes.OrderBy(x => x.Value.m_FDist).ThenBy(z => z.Value.m_HDist).ThenBy(y => y.Value.m_GDist).ToDictionary(t => t.Key, t => t.Value);
 
-			for (int i = 0; i < unusedNodes.Values.Count; i++)
+			// if we still got nodes
+			if (unusedNodes.Count > 0)
 			{
-				if (!unusedNodes.Values.ElementAt(i).m_Closed)
+				// setup the best suited as new path
+				path = unusedNodes.Values.ElementAt(0);
+
+				// if reached the target cell
+				if ((GetCellId(path.m_Pos) - GetCellId(end)).magnitude == 0)
 				{
-					path = unusedNodes.Values.ElementAt(i);
-					if ((GetCellId(path.m_Pos) - GetCellId(end)).magnitude == 0)
-					{
-						found = true;
-					}
-					else
-					{
-						path.m_Closed = true;
-						closedNodes.Add(GetCellId(path.m_Pos), path);
-						unusedNodes.Remove(GetCellId(path.m_Pos));
-					}
-					break;
+					found = true;
 				}
+				else
+				{
+					// otherwise add the new node to the used nodes and remove from unused
+					closedNodes.Add(GetCellId(path.m_Pos), path);
+					unusedNodes.Remove(GetCellId(path.m_Pos));
+				}
+			}
+			else
+			{
+				// otherwise fail
+				path = null;
+				break;
 			}
 
 			count++;
@@ -199,6 +225,7 @@ public class AStar : MonoBehaviour
 
 		List<PathFindingNode> points = new List<PathFindingNode>();
 
+		// list path if exist in reversed order
 		while (path != null)
 		{
 			points.Insert(0, path);
@@ -208,6 +235,8 @@ public class AStar : MonoBehaviour
 		return points;
 	}
 
+
+	// DEBUG map view
 	//void OnDrawGizmos()
 	//{
 	//	if (UnityEditor.EditorApplication.isPlaying)

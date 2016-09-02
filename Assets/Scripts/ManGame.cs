@@ -41,7 +41,7 @@ public class ManGame : MonoBehaviour
 
 		[Header("Spawn Areas")]
 		public float[] m_SpawnTimes;
-		public int m_RedZombieAfter;
+		public int m_RedZombieEvery;
 
 		[Header("Player")]
 		public int m_PlayerLives;
@@ -91,7 +91,7 @@ public class ManGame : MonoBehaviour
 		for (int i = 0; i < m_Areas.Length; i++)
 		{
 			m_Areas[i].Clear();
-			m_Areas[i].Set(m_LevelSettings[id].m_SpawnTimes[i], m_LevelSettings[id].m_RedZombieAfter);
+			m_Areas[i].Set(m_LevelSettings[id].m_SpawnTimes[i], m_LevelSettings[id].m_RedZombieEvery);
 		}
 
 		// setup player
@@ -119,6 +119,7 @@ public class ManGame : MonoBehaviour
 	public void GameOver()
 	{
 		m_Menu.Set(m_CurrentLevel == 0, m_CurrentLevel == m_LevelSettings.Length - 1, false);
+		m_Menu.gameObject.SetActive(true);
 	}
 
 	public void StarNextLevel()

@@ -17,7 +17,7 @@ public class SpawnArea : MonoBehaviour
 	float m_SpawnTime;
 
 	[SerializeField]
-	int m_RedZombieAfter;
+	int m_RedZombieEvery;
 
 	float m_SpawnTimer;
 
@@ -25,12 +25,15 @@ public class SpawnArea : MonoBehaviour
 
 	List<Zombie> m_Zombies = new List<Zombie>();
 
-	const float SPAWN_HEIGHT = 2f;
+	const float SPAWN_HEIGHT = 0f;
+
+	int m_ZombiesSpawned = 0;
 
 	public void Set(float spawnTime, int redZombieAfter)
 	{
+		// setup for a new level
 		m_SpawnTime = spawnTime;
-		m_RedZombieAfter = redZombieAfter;
+		m_RedZombieEvery = redZombieAfter;
 	}
 
 	void Start()
@@ -44,8 +47,10 @@ public class SpawnArea : MonoBehaviour
 		// if spawn time passed
 		if (m_SpawnTimer >= m_SpawnTime)
 		{
+			m_ZombiesSpawned++;;
+
 			// spawn new zombie and set it up
-			Zombie newZombie = Instantiate(m_OrdinaryZombiePrefab, GetRandomSpawnPosition(), Quaternion.identity) as Zombie;
+			Zombie newZombie = Instantiate(m_ZombiesSpawned % m_RedZombieEvery == 0 ? m_RedZombiePrefab : m_OrdinaryZombiePrefab, GetRandomSpawnPosition(), Quaternion.identity) as Zombie;
 			newZombie.m_ClosestCrossing = m_ClosestCrossing.GetChild(0).position;
 			m_SpawnTimer = 0;
 			m_Zombies.Add(newZombie);
@@ -64,6 +69,7 @@ public class SpawnArea : MonoBehaviour
 				Destroy(zombie.gameObject);
 			}
 		}
+		m_ZombiesSpawned = 0;
 		m_Zombies.Clear();
 	}
 

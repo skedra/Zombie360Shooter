@@ -33,6 +33,13 @@ public class PlayerControler : MonoBehaviour
 		m_Lives = lives;
 		m_BulletsPerClip = bulletsPerClip;
 		m_TimeBetweenBullets = timeBetweenBullets;
+
+		// allow to shoot straight away
+		m_TimeSinceLastBullet = m_TimeBetweenBullets;
+
+		// full ammo
+		m_CurrentBullets = m_BulletsPerClip;
+
 		UpdateLivesUI();
 		UpdateBulletUI();
 	}
@@ -40,16 +47,6 @@ public class PlayerControler : MonoBehaviour
 	void Awake()
 	{
 		Trans = transform;
-	}
-
-	// Use this for initialization
-	void Start()
-	{
-		// allow to shoot straight away
-		m_TimeSinceLastBullet = m_TimeBetweenBullets;
-
-		// full ammo
-		m_CurrentBullets = m_BulletsPerClip;
 	}
 
 	public void TakeDamage()

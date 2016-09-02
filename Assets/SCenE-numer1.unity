@@ -542,12 +542,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daa24df50b9e5044a8f60f05e69b3111, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ClosestCrossing: {fileID: 75316820}
+  m_ClosestCrossing: {fileID: 2028465012}
   m_OrdinaryZombiePrefab: {fileID: 114000012517810084, guid: a3c2501d3e3cc9247842fa3a8543e45b,
     type: 2}
-  m_RedZombiePrefab: {fileID: 0}
+  m_RedZombiePrefab: {fileID: 114000011393856692, guid: bd26ec65c0573694194b8cfac78c2fa3,
+    type: 2}
   m_SpawnTime: 5
-  m_RedZombieAfter: 0
+  m_RedZombieEvery: 0
 --- !u!1 &202820678
 GameObject:
   m_ObjectHideFlags: 0
@@ -1012,12 +1013,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daa24df50b9e5044a8f60f05e69b3111, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ClosestCrossing: {fileID: 75316820}
+  m_ClosestCrossing: {fileID: 1920719369}
   m_OrdinaryZombiePrefab: {fileID: 114000012517810084, guid: a3c2501d3e3cc9247842fa3a8543e45b,
     type: 2}
-  m_RedZombiePrefab: {fileID: 0}
+  m_RedZombiePrefab: {fileID: 114000011393856692, guid: bd26ec65c0573694194b8cfac78c2fa3,
+    type: 2}
   m_SpawnTime: 5
-  m_RedZombieAfter: 0
+  m_RedZombieEvery: 0
 --- !u!1 &530916820
 GameObject:
   m_ObjectHideFlags: 0
@@ -1389,9 +1391,10 @@ MonoBehaviour:
   m_ClosestCrossing: {fileID: 75316820}
   m_OrdinaryZombiePrefab: {fileID: 114000012517810084, guid: a3c2501d3e3cc9247842fa3a8543e45b,
     type: 2}
-  m_RedZombiePrefab: {fileID: 0}
+  m_RedZombiePrefab: {fileID: 114000011393856692, guid: bd26ec65c0573694194b8cfac78c2fa3,
+    type: 2}
   m_SpawnTime: 5
-  m_RedZombieAfter: 0
+  m_RedZombieEvery: 0
 --- !u!1 &669476071
 GameObject:
   m_ObjectHideFlags: 0
@@ -1405,7 +1408,7 @@ GameObject:
   - 23: {fileID: 669476072}
   - 114: {fileID: 669476076}
   m_Layer: 0
-  m_Name: Plane
+  m_Name: NavPlane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1484,9 +1487,50 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_MapRenderer: {fileID: 669476072}
-  m_PointOffset: 1
-  m_AgentRadius: 0.5
+  m_CellSize: 0.8
+  m_AgentRadius: 0.2
   m_Center: {x: 0, y: 0}
+--- !u!1 &669940220
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 669940222}
+  - 65: {fileID: 669940221}
+  m_Layer: 0
+  m_Name: CenterTrigger
+  m_TagString: CenterTrigger
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &669940221
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 669940220}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 6.26, y: 9.01, z: 6.26}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &669940222
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 669940220}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 18
 --- !u!1 &939195808
 GameObject:
   m_ObjectHideFlags: 0
@@ -2236,12 +2280,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daa24df50b9e5044a8f60f05e69b3111, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ClosestCrossing: {fileID: 75316820}
+  m_ClosestCrossing: {fileID: 1261639576}
   m_OrdinaryZombiePrefab: {fileID: 114000012517810084, guid: a3c2501d3e3cc9247842fa3a8543e45b,
     type: 2}
-  m_RedZombiePrefab: {fileID: 0}
+  m_RedZombiePrefab: {fileID: 114000011393856692, guid: bd26ec65c0573694194b8cfac78c2fa3,
+    type: 2}
   m_SpawnTime: 5
-  m_RedZombieAfter: 0
+  m_RedZombieEvery: 0
 --- !u!1 &1336677104
 GameObject:
   m_ObjectHideFlags: 0
@@ -2705,7 +2750,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1552736334}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -2.5, z: -2.2}
+  m_LocalPosition: {x: 0, y: -2.5, z: -1.88}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -2945,7 +2990,7 @@ MonoBehaviour:
     - 4
     - 1
     - 2
-    m_RedZombieAfter: 10
+    m_RedZombieEvery: 10
     m_PlayerLives: 3
     m_PlayerClipBullets: 5
     m_TimeBetweenBullets: 1
@@ -2966,7 +3011,7 @@ MonoBehaviour:
     - 4
     - 1
     - 2
-    m_RedZombieAfter: 10
+    m_RedZombieEvery: 0
     m_PlayerLives: 3
     m_PlayerClipBullets: 5
     m_TimeBetweenBullets: 1
@@ -2982,7 +3027,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1798341258}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.27355957, y: 6.0234375, z: 1.8730469}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []

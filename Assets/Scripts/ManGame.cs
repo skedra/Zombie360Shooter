@@ -29,6 +29,7 @@ public class ManGame : MonoBehaviour
 	Text m_ScoreLabel;
 
 	[Header("Main UI")]
+	[SerializeField]
 	Menu m_Menu;
 
 	[System.Serializable]
@@ -72,7 +73,7 @@ public class ManGame : MonoBehaviour
 	void StartLevel(int id)
 	{
 		// if we're out of bounds
-		if (m_LevelSettings.Length >= id)
+		if (m_LevelSettings.Length <= id)
 		{
 			Debug.LogError("Level doesn't exist");
 			return;
@@ -138,7 +139,7 @@ public class ManGame : MonoBehaviour
 	// Use this for initialization
 	void Start()
 	{
-
+		StartFirstLevel();
 	}
 
 	// Update is called once per frame

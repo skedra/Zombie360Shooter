@@ -22,6 +22,8 @@ public class PlayerControler : MonoBehaviour
 	[SerializeField]
 	Text m_CurrentBulletsLabel;
 
+	public Transform Trans { get; private set; }
+
 	float m_TimeSinceLastBullet;
 
 	int m_CurrentBullets;
@@ -31,6 +33,13 @@ public class PlayerControler : MonoBehaviour
 		m_Lives = lives;
 		m_BulletsPerClip = bulletsPerClip;
 		m_TimeBetweenBullets = timeBetweenBullets;
+		UpdateLivesUI();
+		UpdateBulletUI();
+	}
+
+	void Awake()
+	{
+		Trans = transform;
 	}
 
 	// Use this for initialization
@@ -46,6 +55,21 @@ public class PlayerControler : MonoBehaviour
 	public void TakeDamage()
 	{
 		m_Lives--;
+		UpdateLivesUI();
+    if (m_Lives == 0)
+		{
+			ManGame.inst.GameOver();
+		}
+	}
+
+	void UpdateLivesUI()
+	{
+		m_LivesLabel.text = "" + m_Lives;
+	}
+
+	void UpdateBulletUI()
+	{
+		m_CurrentBulletsLabel.text = "" + m_CurrentBullets;
 	}
 
 	void Fire()
@@ -57,6 +81,7 @@ public class PlayerControler : MonoBehaviour
 		Transform cameraTrans = Camera.main.transform;
 		Bullet newBullet = Instantiate(m_BulletPrefab, cameraTrans.position + cameraTrans.forward * 0.5f, Quaternion.identity) as Bullet;
 		newBullet.GetComponent<Rigidbody>().AddForce(cameraTrans.forward * 800f);
+		UpdateBulletUI();
 	}
 
 	void HandleButtonPresses()
@@ -71,6 +96,7 @@ public class PlayerControler : MonoBehaviour
 		if (Input.GetKeyDown(KeyCode.LeftControl))
 		{
 			m_CurrentBullets = m_BulletsPerClip;
+			UpdateBulletUI();
 		}
 		m_TimeSinceLastBullet += Time.deltaTime;
 	}

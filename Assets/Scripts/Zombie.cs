@@ -7,12 +7,25 @@ public class Zombie : MonoBehaviour
 	[SerializeField]
 	float m_InitSpeed = 5;
 
+	[SerializeField]
+	float m_Range = 2f;
+
+	[SerializeField]
+	float m_AttackDelay = 2f;
+
 	public Vector3 m_ClosestCrossing;
+
 	Transform m_Trans;
+
 	List<AStar.PathFindingNode> m_Path;
+
 	private bool m_WaitForLight;
 
 	EnemyState m_EnemyState;
+
+	PlayerControler m_Player;
+
+	float m_AttackTimer;
 
 	public enum EnemyState
 	{
@@ -27,6 +40,7 @@ public class Zombie : MonoBehaviour
 		m_Path = AStar.inst.GetPath(new Vector2(m_Trans.position.x, m_Trans.position.z), new Vector2(m_ClosestCrossing.x, m_ClosestCrossing.z));
 		m_Path.RemoveAt(0);
 		m_EnemyState = EnemyState.GoingToLights;
+		m_Player = FindObjectOfType<PlayerControler>();
 	}
 
 	// Update is called once per frame
@@ -51,6 +65,12 @@ public class Zombie : MonoBehaviour
 				}
 			}
 		}
+		if ((m_Trans.position - m_Player.Trans.position).magnitude <= m_Range && m_AttackTimer >= m_AttackDelay)
+		{
+			m_Player.TakeDamage();
+			m_AttackTimer = 0;
+		}
+		m_AttackTimer += Time.deltaTime;
 	}
 
 	void LightChanged(TrafficLight light)

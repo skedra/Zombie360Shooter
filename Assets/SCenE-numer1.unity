@@ -198,7 +198,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 1643455437}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_AnchorMin: {x: 0.8248256, y: 0.88363963}
   m_AnchorMax: {x: 0.91204834, y: 0.99999994}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -431,7 +431,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4484a462c9918dd488469c3682d2c7f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Speed: 80
+  m_Speed: 180
   m_InvertY: 1
 --- !u!114 &155670654
 MonoBehaviour:
@@ -449,8 +449,8 @@ MonoBehaviour:
   m_TimeBetweenBullets: 1
   m_BulletPrefab: {fileID: 114000012829922900, guid: 4fd06533d3ed8784b85cac862ac47d51,
     type: 2}
-  m_LivesLabel: {fileID: 0}
-  m_CurrentBulletsLabel: {fileID: 0}
+  m_LivesLabel: {fileID: 1477708105}
+  m_CurrentBulletsLabel: {fileID: 202820680}
 --- !u!1 &188616951
 GameObject:
   m_ObjectHideFlags: 0
@@ -462,6 +462,7 @@ GameObject:
   - 33: {fileID: 188616954}
   - 65: {fileID: 188616953}
   - 23: {fileID: 188616952}
+  - 114: {fileID: 188616956}
   m_Layer: 0
   m_Name: Spawn Right
   m_TagString: Untagged
@@ -530,6 +531,97 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 8
+--- !u!114 &188616956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 188616951}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: daa24df50b9e5044a8f60f05e69b3111, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ClosestCrossing: {fileID: 75316820}
+  m_OrdinaryZombiePrefab: {fileID: 114000012517810084, guid: a3c2501d3e3cc9247842fa3a8543e45b,
+    type: 2}
+  m_RedZombiePrefab: {fileID: 0}
+  m_SpawnTime: 5
+  m_RedZombieAfter: 0
+--- !u!1 &202820678
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 224: {fileID: 202820679}
+  - 222: {fileID: 202820681}
+  - 114: {fileID: 202820680}
+  m_Layer: 5
+  m_Name: Bullets
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &202820679
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 202820678}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 1643455437}
+  m_RootOrder: 4
+  m_AnchorMin: {x: 0.9120341, y: 0.8836343}
+  m_AnchorMax: {x: 0.99999064, y: 0.9999998}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &202820680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 202820678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 14
+    m_FontStyle: 0
+    m_BestFit: 1
+    m_MinSize: 10
+    m_MaxSize: 100
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 0
+--- !u!222 &202820681
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 202820678}
 --- !u!1 &278134188
 GameObject:
   m_ObjectHideFlags: 0
@@ -840,6 +932,7 @@ GameObject:
   - 33: {fileID: 521790887}
   - 65: {fileID: 521790886}
   - 23: {fileID: 521790885}
+  - 114: {fileID: 521790889}
   m_Layer: 0
   m_Name: Spawn Bottom
   m_TagString: Untagged
@@ -908,6 +1001,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 10
+--- !u!114 &521790889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 521790884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: daa24df50b9e5044a8f60f05e69b3111, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ClosestCrossing: {fileID: 75316820}
+  m_OrdinaryZombiePrefab: {fileID: 114000012517810084, guid: a3c2501d3e3cc9247842fa3a8543e45b,
+    type: 2}
+  m_RedZombiePrefab: {fileID: 0}
+  m_SpawnTime: 5
+  m_RedZombieAfter: 0
 --- !u!1 &530916820
 GameObject:
   m_ObjectHideFlags: 0
@@ -937,7 +1047,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 1643455437}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_AnchorMin: {x: 0.0000025985391, y: 0.883644}
   m_AnchorMax: {x: 0.087225325, y: 1.0000043}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -1775,7 +1885,7 @@ RectTransform:
   m_Children:
   - {fileID: 1340588958}
   m_Father: {fileID: 1643455437}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -2046,6 +2156,7 @@ GameObject:
   - 33: {fileID: 1279643239}
   - 65: {fileID: 1279643238}
   - 23: {fileID: 1279643237}
+  - 114: {fileID: 1279643241}
   m_Layer: 0
   m_Name: Spawn Top
   m_TagString: Untagged
@@ -2114,6 +2225,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 9
+--- !u!114 &1279643241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1279643236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: daa24df50b9e5044a8f60f05e69b3111, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ClosestCrossing: {fileID: 75316820}
+  m_OrdinaryZombiePrefab: {fileID: 114000012517810084, guid: a3c2501d3e3cc9247842fa3a8543e45b,
+    type: 2}
+  m_RedZombiePrefab: {fileID: 0}
+  m_SpawnTime: 5
+  m_RedZombieAfter: 0
 --- !u!1 &1336677104
 GameObject:
   m_ObjectHideFlags: 0
@@ -2453,6 +2581,80 @@ Transform:
   m_Children: []
   m_Father: {fileID: 965845907}
   m_RootOrder: 3
+--- !u!1 &1477708103
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 224: {fileID: 1477708104}
+  - 222: {fileID: 1477708106}
+  - 114: {fileID: 1477708105}
+  m_Layer: 5
+  m_Name: Lives
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1477708104
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1477708103}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 1643455437}
+  m_RootOrder: 1
+  m_AnchorMin: {x: 0.087225854, y: 0.88364416}
+  m_AnchorMax: {x: 0.19630994, y: 1.0000097}
+  m_AnchoredPosition: {x: 0, y: 0.000015258789}
+  m_SizeDelta: {x: 0, y: 0.000030517578}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1477708105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1477708103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 14
+    m_FontStyle: 0
+    m_BestFit: 1
+    m_MinSize: 10
+    m_MaxSize: 100
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 0
+--- !u!222 &1477708106
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1477708103}
 --- !u!1 &1512181182
 GameObject:
   m_ObjectHideFlags: 0
@@ -2675,8 +2877,10 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 626169716}
+  - {fileID: 1477708104}
   - {fileID: 530916821}
   - {fileID: 39568489}
+  - {fileID: 202820679}
   - {fileID: 1207429610}
   m_Father: {fileID: 0}
   m_RootOrder: 15
@@ -2715,29 +2919,62 @@ MonoBehaviour:
   m_Cars:
   - {fileID: 1235681692}
   - {fileID: 939195813}
-  m_TrafficLights: []
-  m_Areas: []
+  m_TrafficLights:
+  - {fileID: 1261639577}
+  - {fileID: 2028465013}
+  - {fileID: 1920719370}
+  - {fileID: 75316821}
+  m_Areas:
+  - {fileID: 1279643241}
+  - {fileID: 188616956}
+  - {fileID: 521790889}
+  - {fileID: 658069612}
   m_LevelSettings:
-  - m_RedTimes: []
-    m_GreenTimes: []
-    m_SpawnTimes: []
-    m_RedZombieAfter: 0
-    m_PlayerLives: 0
-    m_PlayerClipBullets: 0
-    m_TimeBetweenBullets: 0
-    m_ZombiePoints: 0
-    m_PointsToProceed: 0
-  - m_RedTimes: []
-    m_GreenTimes: []
-    m_SpawnTimes: []
-    m_RedZombieAfter: 0
-    m_PlayerLives: 0
-    m_PlayerClipBullets: 0
-    m_TimeBetweenBullets: 0
-    m_ZombiePoints: 0
-    m_PointsToProceed: 0
-  m_Player: {fileID: 0}
+  - m_RedTimes:
+    - 5
+    - 5
+    - 5
+    - 5
+    m_GreenTimes:
+    - 5
+    - 5
+    - 5
+    - 5
+    m_SpawnTimes:
+    - 3
+    - 4
+    - 1
+    - 2
+    m_RedZombieAfter: 10
+    m_PlayerLives: 3
+    m_PlayerClipBullets: 5
+    m_TimeBetweenBullets: 1
+    m_ZombiePoints: 5
+    m_PointsToProceed: 50
+  - m_RedTimes:
+    - 5
+    - 5
+    - 5
+    - 5
+    m_GreenTimes:
+    - 5
+    - 5
+    - 5
+    - 5
+    m_SpawnTimes:
+    - 3
+    - 4
+    - 1
+    - 2
+    m_RedZombieAfter: 10
+    m_PlayerLives: 3
+    m_PlayerClipBullets: 5
+    m_TimeBetweenBullets: 1
+    m_ZombiePoints: 5
+    m_PointsToProceed: 50
+  m_Player: {fileID: 155670654}
   m_ScoreLabel: {fileID: 0}
+  m_Menu: {fileID: 1207429611}
 --- !u!4 &1798341260
 Transform:
   m_ObjectHideFlags: 0

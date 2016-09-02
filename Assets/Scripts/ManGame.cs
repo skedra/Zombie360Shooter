@@ -32,6 +32,9 @@ public class ManGame : MonoBehaviour
 	[SerializeField]
 	Menu m_Menu;
 
+	[SerializeField]
+	Text m_ScoreText;
+
 	[System.Serializable]
 	public class LevelSettings
 	{
@@ -81,7 +84,7 @@ public class ManGame : MonoBehaviour
 		}
 
 		m_Score = 0;
-
+		UpdateScoreUI();
 		// setup the lights
 		for (int i = 0; i < m_TrafficLights.Length; i++)
 		{
@@ -109,7 +112,8 @@ public class ManGame : MonoBehaviour
 	{
 		// add points and show stop the game if the player finished the leve
 		m_Score += m_LevelSettings[m_CurrentLevel].m_ZombiePoints;
-		if (m_Score >= m_LevelSettings[m_CurrentLevel].m_PointsToProceed)
+		UpdateScoreUI();
+    if (m_Score >= m_LevelSettings[m_CurrentLevel].m_PointsToProceed)
 		{
 			m_Menu.gameObject.SetActive(true);
 			// setup the menu
@@ -121,6 +125,7 @@ public class ManGame : MonoBehaviour
 	{
 		m_Menu.Set(m_CurrentLevel == 0, m_CurrentLevel == m_LevelSettings.Length - 1, false);
 		m_Menu.gameObject.SetActive(true);
+		UpdateScoreUI();
 	}
 
 	public void StarNextLevel()
@@ -136,6 +141,11 @@ public class ManGame : MonoBehaviour
 	public void RestartLevel()
 	{
 		StartLevel(m_CurrentLevel);
+	}
+
+	void UpdateScoreUI()
+	{
+		m_ScoreText.text = "" + m_Score;
 	}
 
 	// Use this for initialization

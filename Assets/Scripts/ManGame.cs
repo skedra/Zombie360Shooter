@@ -99,6 +99,7 @@ public class ManGame : MonoBehaviour
 
 		m_CurrentLevel = id;
 
+		// disable the menu
 		m_Menu.gameObject.SetActive(false);
 	}
 
@@ -112,6 +113,11 @@ public class ManGame : MonoBehaviour
 			// setup the menu
 			m_Menu.Set(m_CurrentLevel == 0, m_CurrentLevel == m_LevelSettings.Length - 1, true);
 		}
+	}
+
+	public void GameOver()
+	{
+		m_Menu.Set(m_CurrentLevel == 0, m_CurrentLevel == m_LevelSettings.Length - 1, false);
 	}
 
 	public void StarNextLevel()

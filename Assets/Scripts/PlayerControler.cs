@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class PlayerControler : MonoBehaviour
 {
@@ -14,6 +15,12 @@ public class PlayerControler : MonoBehaviour
 
 	[SerializeField]
 	Bullet m_BulletPrefab;
+
+	[SerializeField]
+	Text m_LivesLabel;
+
+	[SerializeField]
+	Text m_CurrentBulletsLabel;
 
 	float m_TimeSinceLastBullet;
 
@@ -36,10 +43,17 @@ public class PlayerControler : MonoBehaviour
 		m_CurrentBullets = m_BulletsPerClip;
 	}
 
+	public void TakeDamage()
+	{
+		m_Lives--;
+	}
+
 	void Fire()
 	{
 		m_CurrentBullets--;
 		m_TimeSinceLastBullet = 0;
+
+		// use the forward of the camera to shoot
 		Transform cameraTrans = Camera.main.transform;
 		Bullet newBullet = Instantiate(m_BulletPrefab, cameraTrans.position + cameraTrans.forward * 0.5f, Quaternion.identity) as Bullet;
 		newBullet.GetComponent<Rigidbody>().AddForce(cameraTrans.forward * 800f);

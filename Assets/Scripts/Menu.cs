@@ -8,10 +8,14 @@ public class Menu : MonoBehaviour
 	[SerializeField]
 	GameObject m_NextLevel, m_Restart, m_BackToStart;
 
+	[SerializeField]
+	Text m_Title;
+
 	public void Set(bool firstLevel, bool lastLevel, bool win)
 	{
 		m_NextLevel.SetActive(win && !lastLevel);
 		m_BackToStart.SetActive(!firstLevel);
+		m_Title.text = win ? "You won" : "You died";
 	}
 
 	// Pause the game

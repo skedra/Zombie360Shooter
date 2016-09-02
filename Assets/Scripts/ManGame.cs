@@ -51,6 +51,7 @@ public class ManGame : MonoBehaviour
 		[Header("Level settings")]
 		public int m_ZombiePoints;
 		public int m_PointsToProceed;
+		public float m_ZombieAttackTime;
 	}
 
 	int m_Score;
@@ -91,7 +92,7 @@ public class ManGame : MonoBehaviour
 		for (int i = 0; i < m_Areas.Length; i++)
 		{
 			m_Areas[i].Clear();
-			m_Areas[i].Set(m_LevelSettings[id].m_SpawnTimes[i], m_LevelSettings[id].m_RedZombieEvery);
+			m_Areas[i].Set(m_LevelSettings[id].m_SpawnTimes[i], m_LevelSettings[id].m_RedZombieEvery, m_LevelSettings[id].m_ZombieAttackTime);
 		}
 
 		// setup player

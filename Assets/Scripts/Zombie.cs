@@ -101,6 +101,9 @@ public class Zombie : MonoBehaviour
 				if ((m_Trans.position - m_Player.Trans.position).magnitude <= m_Range)
 				{
 					m_EnemyState = EnemyState.Attacking;
+
+					// wait before attacking
+					m_AttackTimer = 0;
 				}
 			}
 		}
@@ -124,6 +127,11 @@ public class Zombie : MonoBehaviour
 	{
 		ManGame.inst.ZombieKilled();
 		Destroy(this.gameObject);
+	}
+
+	public void Set(float attackTime)
+	{
+		m_AttackDelay = attackTime;
 	}
 
 	// if the light is green before going beneath it wait, otherwise continue 

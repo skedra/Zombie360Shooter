@@ -29,11 +29,14 @@ public class SpawnArea : MonoBehaviour
 
 	int m_ZombiesSpawned = 0;
 
-	public void Set(float spawnTime, int redZombieAfter)
+	float m_ZombieAttackTime = 0;
+
+	public void Set(float spawnTime, int redZombieAfter, float zombieAttackTime)
 	{
 		// setup for a new level
 		m_SpawnTime = spawnTime;
 		m_RedZombieEvery = redZombieAfter;
+		m_ZombieAttackTime = zombieAttackTime;
 	}
 
 	void Start()
